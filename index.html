@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <!-- <script src="cordova.js"></script>
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section id="pgWelcome">
+        <header>
+            <h2>Adventure Quest</h2>
+        </header>
+        <main>
+            <p>
+             Welcome, adventurer! Let's go on our first quest. Either continue an old adventure, or head over to the Oracle to build your party. 
+            </p>
+            <p>
+             <button onclick="fnNavMenus('#pgWelcome', '#pgLoadGame');">Load Game</button>  
+             <button onclick="fnNavMenus('#pgWelcome', '#pgCreateGame');">New Game</button>
+            </p>
+        </main>
+        <footer>
+            <h4>Copyright 2025</h4>
+        </footer>
+    </section>
+
+    <section id="pgLoadGame">
+        <header>
+            <h2><button onclick="fnNavMenus('#pgLoadGame', '#pgWelcome');">Back</button> Load Game</h2>
+        </header>
+        <main>
+            <p id="pLGPartyMessage">&nbsp;</p>
+            <p id="pLGPartySelect">&nbsp;</p>
+        </main>
+        <footer>
+            <br><br><h4>Total Saves: <span id="spnLGPartyTotals">&nbsp;</span></h4>
+        </footer>
+    </section> <!-- END #pgLoadGame -->
+
+    <section id="pgCreateGame">
+        <header>
+            <h2><button onclick="fnNavMenus('#pgCreateGame', '#pgWelcome');">BACK</button> Create Game</h2>
+        </header>
+        <main>
+            <p> The Oracle must know a little bit about you, so that she can assess your skill levels. </p>
+            <p id="pGameInputWarning" style="display: none;">
+                Error - You must enter both name and email.
+            </p>
+            <p id="pCreateGameInputs">
+                <label>Name: </label><input id="inCreateGameName"><br><br>
+                <label>Email: </label><input id="inCreateGameEmail"><br><br>
+                <button onclick="fnCharCreate();">Summon</button>
+            </p>
+            <p style="display: none;" id="pCreateGameControls">
+                <span id="spnCreateGameOutput">&nbsp;</span>
+            </p>
+        </main>
+        <footer>
+            <h4>Contact</h4>
+        </footer>
+    </section> <!-- END #pgCreateGame -->
+
+    <section id="pgTavern">
+        <header>
+            <h2>Foggy Mountain Tavern</h2>
+        </header>
+        <main>
+            <p id="pTvnMsg">&nbsp;</p>
+            <p id="pTvnParty">&nbsp;</p>
+            <p id="pTvnAction">&nbsp;</p>
+            <p id="pTvnEnemy">&nbsp;</p>
+            <p id="pTvnResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4> <!-- Make Load and Quit Hyperlinks that are clickable, but not <button> -->
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgTavern -->
+
+    <section id="pgForest">
+        <header>
+            <h2>Forest</h2>
+        </header>
+        <main>
+            <p id="pFstMsg">&nbsp; Msg</p>
+            <p id="pFstParty">&nbsp; Party</p>
+            <p id="pFstAction">&nbsp; Action</p>
+            <p id="pFstEnemy">&nbsp; Enemies</p>
+            <p id="pFstResults">&nbsp; Result</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgForest -->
+
+    <section id="pgLake">
+        <header>
+            <!-- <h2><button onclick="fnGameRestart('#pgLake', '#pgWelcome');">Restart Game</button> Lake</h2> -->
+            <h2>Lake</h2>
+        </header>
+        <main>
+            <p id="pLakMsg">&nbsp;</p>
+            <p id="pLakParty">&nbsp;</p>
+            <p id="pLakAction">&nbsp;</p>
+            <p id="pLakEnemy">&nbsp;</p>
+            <p id="pLakResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgLake -->
+
+    <section id="pgMountain">
+        <header>
+            <!-- <h2><button onclick="fnGameRestart('#pgMountain', '#pgWelcome');">Restart Game</button> Mountain</h2> -->
+            <h2>Mountain</h2>
+        </header>
+        <main>
+            <p id="pMntMsg">&nbsp;</p>
+            <p id="pMntParty">&nbsp;</p>
+            <p id="pMntAction">&nbsp;</p>
+            <p id="pMntEnemy">&nbsp;</p>
+            <p id="pMntResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgMountain -->
+
+    <section id="pgBridge">
+        <header>
+            <!-- <h2><button onclick="fnGameRestart('#pgBridge', '#pgWelcome');">Restart Game</button> Bridge</h2> -->
+            <h2>Bridge</h2>
+        </header>
+        <main>
+            <p id="pBrdMsg">&nbsp;</p>
+            <p id="pBrdParty">&nbsp;</p>
+            <p id="pBrdAction">&nbsp;</p>
+            <p id="pBrdEnemy">&nbsp;</p>
+            <p id="pBrdResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgBridge -->
+
+    <section id="pgDungeon">
+        <header>
+            <!-- <h2><button onclick="fnGameRestart('#pgDungeon', '#pgWelcome');">Restart Game</button> Diabolical Dungeon</h2> -->
+            <h2>Diabolical Dungeon</h2>
+        </header>
+        <main>
+            <p id="pDunMsg">&nbsp;</p>
+            <p id="pDunParty">&nbsp;</p>
+            <p id="pDunEnemy">&nbsp;</p>
+            <p id="pDunAction">&nbsp;</p>
+            <p id="pDunResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgDungeon -->
+
+    <section id="pgEndBAD">
+        <header>
+            <h1>BAD</h1>
+        </header>
+        <main>
+            <p id="pLakMsg">&nbsp;</p>
+            <p id="pLakParty">&nbsp;</p>
+            <p id="pLakEnemy">&nbsp;</p>
+            <p id="pLakAction">&nbsp;</p>
+            <p id="pLakResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgEND -->
+        <section id="pgEndOK">
+        <header>
+            <h1>OK</h1>
+        </header>
+        <main>
+            <p id="pLakMsg">&nbsp;</p>
+            <p id="pLakParty">&nbsp;</p>
+            <p id="pLakEnemy">&nbsp;</p>
+            <p id="pLakAction">&nbsp;</p>
+            <p id="pLakResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgEND -->
+        <section id="pgEndGOOD">
+        <header>
+            <h1>GOOD</h1>
+        </header>
+        <main>
+            <p id="pLakMsg">&nbsp;</p>
+            <p id="pLakParty">&nbsp;</p>
+            <p id="pLakEnemy">&nbsp;</p>
+            <p id="pLakAction">&nbsp;</p>
+            <p id="pLakResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgEND -->
+
+    <!-- Template for future levels -->
+    <section id="pgTMP">
+        <header>
+            <h1>NEWW</h1>
+        </header>
+        <main>
+            <p id="pTmpMsg">&nbsp;</p>
+            <p id="pTmpParty">&nbsp;</p>
+            <p id="pTmpEnemy">&nbsp;</p>
+            <p id="pTmpAction">&nbsp;</p>
+            <p id="pTmpResults">&nbsp;</p>
+        </main>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgTMP -->
+
+    <script type="module" src="../js/game.js" defer></script>
+</body>
+</html>

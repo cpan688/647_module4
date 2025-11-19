@@ -1,0 +1,140 @@
+:root {
+  --bg: forestgreen;
+  --bg2: black;
+  --primary:goldenrod;
+  --secondary: rgb(247, 247, 170);
+  --text: white; 
+  --text-2: rgb(39, 28, 187);
+  --accent: #104b48;
+  --accent-2: #eea722;
+  --border: rgba(255, 255, 255, 0.533);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  --radius: 25px;
+  --ff:'Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
+  --ff2: 'Courier New', Courier, monospace;
+}
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+section {
+    display: none;
+    background-color: var(--bg2);
+    font-family: var(--ff2);
+    font-size:110%; 
+    margin: 5px; /* OUTSIDE */
+    /* margin-left: 50px; */
+    padding: 25px; /* INSIDE */
+    border-radius: 25px;
+    color: var(--primary);
+}
+
+section#pgWelcome {
+    text-align: center;
+}
+
+section#pgWelcome header h1 {
+    line-height: 25%;
+}
+
+section#pgWelcome footer h4 {
+    margin-bottom: 1px;
+}
+
+section#pgCreateGame h1 { margin-top: 0em;}
+
+section#pgTavern { text-align: center; }
+
+#pGameInputWarning { color: red;}
+
+button {
+    background-color: var(--secondary);
+    border-color: var(--border);
+    border-radius: 10px;
+    font-size: .8rem;
+    font-weight: bold;
+    color: var(--text-2);
+    margin: 5px;
+    padding: 3px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.6em;
+  margin-left: 0px;
+}
+
+th, td {
+  /* padding: 0.4em 0.6em; */
+  padding: 0.2em 0.3em;
+  border: 1px solid goldenrod;
+  text-align: center;
+}
+
+th {
+  background-color: #333;
+  color: goldenrod;
+}
+
+td {
+  background-color: #111;
+  color: #eee;
+}
+
+/* === Responsive layout for mobile === */
+/* @media (max-width: 600px) { */
+@media (max-width: 300px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    display: none; /* hide header row on mobile */
+  }
+
+  tr {
+    margin-bottom: 0.5em;
+    /* margin-bottom: 0.8em; */
+    border: 1px solid goldenrod;
+    border-radius: 0.5em;
+    overflow: hidden;
+  }
+
+  td {
+    text-align: right;
+    padding-left: 25%;
+    /* padding-left: 50%; */
+    position: relative;
+    border: none;
+    border-bottom: 1px solid goldenrod;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.2em;
+    /* left: 0.5em; */
+    width: 45%;
+    padding-left: 0.2em;
+    /* padding-left: 0.3em; */
+    font-weight: bold;
+    text-align: left;
+    color: goldenrod;
+  }
+
+  td:first-child {
+    text-align: left;
+    background-color: #222;
+    color: goldenrod;
+    border-bottom: 2px solid goldenrod;
+  }
+}
