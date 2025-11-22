@@ -61,7 +61,7 @@ button {
     border-radius: 10px;
     font-size: .8rem;
     font-weight: bold;
-    color: var(--text-2);
+    /* color: var(--text-2); */
     margin: 5px;
     padding: 3px;
 }
@@ -147,12 +147,25 @@ td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 #showImage {
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     border-radius: 14px;
     display: block;
 }
+
+.blink{
+  font-size: 1.5em;
+  font-weight: bold;
+  color:magenta;
+  text-align:center;
+  animation: blink 1s linear infinite;
+} 
+
+@keyframes blink{
+  50%{opacity: 0}
+  80%{opacity: 0.5}
+} 

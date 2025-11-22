@@ -204,7 +204,7 @@ function fnGameInit(){
             // if a previously saved game has reached the Dungeon, disable it
             if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
             document.querySelector("#pLGPartySelect").innerHTML += 
-                "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+                "<p>" + tmpPartyData.cMain.cName + " - Game Over</p>";
             } else {
             document.querySelector("#pLGPartySelect").innerHTML += 
                 "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
@@ -567,9 +567,9 @@ function fnTavern(currParty){
         [tvEnemy01, tvEnemy02, tvEnemy03],
         [            
             { label: 'eClass', name: 'Class' },
-            { label: 'eStr', name: 'STR' },
-            { label: 'eSpd', name: 'SPD' },
-            { label: 'eHp', name: 'HP' },
+            // { label: 'eStr', name: 'STR' },
+            // { label: 'eSpd', name: 'SPD' },
+            // { label: 'eHp', name: 'HP' },
         ],
         'eType', 'name');
     const enemyContainer = document.querySelector('#pTvnEnemy');
@@ -1818,7 +1818,7 @@ function fnLogOut(logWhere, logWhich){
                     // if a previously saved game has reached the Dungeon, disable it
                     if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
                     document.querySelector("#pLGPartySelect").innerHTML += 
-                        "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+                        "<p>" + tmpPartyData.cMain.cName + " - Game Over</p>";
                     } else {
                     document.querySelector("#pLGPartySelect").innerHTML += 
                         "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
@@ -1843,7 +1843,7 @@ function fnLogOut(logWhere, logWhich){
                 // if a previously saved game has reached the Dungeon, disable it
                 if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
                 document.querySelector("#pLGPartySelect").innerHTML += 
-                    "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+                    "<p>" + tmpPartyData.cMain.cName + " - Game Over</p>";
                 } else {
                 document.querySelector("#pLGPartySelect").innerHTML += 
                     "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
@@ -1954,20 +1954,22 @@ function fnDungeon(currParty){
         if(timeLeft >= 8){
         // 8, 9, 10
             console.log("BEST ending");
-            document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>Amazing!</p>";
-            document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to GOOD end</p>";
+            document.querySelector("#pDunEnemy").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>Amazing!</p>";
+            // "<p style='text-align: center; font-weight: bold;'>Amazing!</p>";
+            document.querySelector("#pDunResults").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>Go to GOOD end</p>";
+            // "<p style='text-align: center; font-weight: bold;'>Go to GOOD end</p>";
             fnCountdownDelay(maxDelayTime, "#pgEndGood", myParty); 
         } else if(timeLeft >=3 && timeLeft <= 7){
             // 3, 4, 5, 6, 7
             console.log("OK ending");
-            document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>Adequate</p>";
-            document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to OK end</p>";
+            document.querySelector("#pDunEnemy").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>Adequate</p>";
+            document.querySelector("#pDunResults").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>Go to OK end</p>";
             fnCountdownDelay(maxDelayTime, "#pgEndOK", myParty); 
         } else {
             // 1, 2
             console.log("BAD ending");
-            document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>No!</p>";
-            document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to BAD end</p>";
+            document.querySelector("#pDunEnemy").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>No!</p>";
+            document.querySelector("#pDunResults").innerHTML = "<p class='blink'; transform: translate(-50%, -50%);>Go to BAD end</p>";
             fnCountdownDelay(maxDelayTime, "#pgEndBad", myParty); 
         }; // END If..Else If time checker
     }; // END fnDunAction()
@@ -1993,6 +1995,8 @@ function fnDungeon(currParty){
                         splash.style.display = "flex";
                         sound.currentTime = 0; 
                         sound.play();
+                        document.querySelector("#pDunEnemy").innerHTML = "";
+                        document.querySelector("#pDunResults").innerHTML = "";
                         break;
                     case "#pgEndOK":
                         console.log("Display The OK Job screen");
