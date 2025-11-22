@@ -138,3 +138,21 @@ td {
     border-bottom: 2px solid goldenrod;
   }
 }
+
+.splashScreen {
+    /* position: fixed; */
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#showImage {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 14px;
+    display: block;
+}

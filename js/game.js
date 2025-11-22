@@ -201,8 +201,14 @@ function fnGameInit(){
         // Show the Saved Games (Parties) to select from
         for(let i = 0; i < tmpGamesAll.length; i++){
             let tmpPartyData = JSON.parse(localStorage.getItem(tmpGamesAll[i]));
+            // if a previously saved game has reached the Dungeon, disable it
+            if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
+            document.querySelector("#pLGPartySelect").innerHTML += 
+                "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+            } else {
             document.querySelector("#pLGPartySelect").innerHTML += 
                 "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
+            }
         }; //END For()
         
     }; // END If..Else()
@@ -222,8 +228,14 @@ function fnGameLoad(gData){
     // Get data from localStorage and Parse it back into a JSON object
     let tmpLoadAllData = JSON.parse(localStorage.getItem(gData));
     console.log(tmpLoadAllData);
-    // Use the _currentScreen Property to go to the correct screen
-    fnNavQuest("#pgLoadGame", tmpLoadAllData._currentScreen, gData);
+
+    // if a previous game has ended after Dungeon, go back to the welcome screen
+    if (tmpLoadAllData._currentScreen == "#pgEndGood" || tmpLoadAllData._currentScreen == "#pgEndOK" || tmpLoadAllData._currentScreen == "#pgEndBad") {
+        fnNavMenus("#pgLoadGame", "#pgWelcome");
+    } else {
+        // Use the _currentScreen Property to go to the correct screen
+        fnNavQuest("#pgLoadGame", tmpLoadAllData._currentScreen, gData);
+    }
 }; // END fnGameLoad()
 
 
@@ -264,6 +276,11 @@ function fnNavQuest(pgHide, pgShow, currParty) {
             console.log("About to initialize The Dungeon");
             fnDungeon(currParty); 
             break;
+        // case "#pgEndGood":
+        //     console.log("About to initialize The Good Job screen");
+        //     fnDungeon(currParty); 
+        //     break;
+
         default: 
             console.log("Unknown - going nowhere", pgShow);
             break;
@@ -1773,30 +1790,66 @@ function fnBridge(currParty){
 // Set up a way to Load or Quit while we play
 function fnLogOut(logWhere, logWhich){
     console.log("fnLogOut() is running from where:", logWhere.id, "which was clicked:", logWhich);
+    
+    // // If coming from the Dungeon scene, close splash screen and disable sound
+    // if (logWhere.id == "#pgEndGood") {
+    //     const splash = document.getElementById("splashScreen");
+    //     const sound = document.getElementById("playSound");
+    //     splash.style.display = "none";
+    //     sound.onpause();
+    // }
+    
+    // Re-load game data
+    let tmpGamesAll = JSON.parse(localStorage.getItem("allEmails"));
+
     // Switch between Load or Quit
     switch(logWhich) {
         case "Load":
-            if(window.confirm("Are you sure you want to load another saved game?")){
+            // if(window.confirm("Are you sure you want to load another saved game?")){
                 console.log("Yes, log out");
-                // Re-load game data
-                let tmpGamesAll = JSON.parse(localStorage.getItem("allEmails"));
-                // Clear out the old list of Saved Games firsst
+                // // Re-load game data
+                // let tmpGamesAll = JSON.parse(localStorage.getItem("allEmails"));
+                // Clear out the old list of Saved Games first
                 document.querySelector("#pLGPartySelect").innerHTML = "";
                 // Then re-build the list
+                // Show the Saved Games (Parties) to select from
                 for(let i = 0; i < tmpGamesAll.length; i++){
                     let tmpPartyData = JSON.parse(localStorage.getItem(tmpGamesAll[i]));
+                    // if a previously saved game has reached the Dungeon, disable it
+                    if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
+                    document.querySelector("#pLGPartySelect").innerHTML += 
+                        "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+                    } else {
                     document.querySelector("#pLGPartySelect").innerHTML += 
                         "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
+                    }
                 }; //END For()
                 // Move to pgLoadGame
                 fnNavMenus("#" + logWhere.id, "#pgLoadGame");
-            }; // END True on the Confirm
+            // }; // END True on the Confirm
             break;
         case "Quit":
-            if(window.confirm("Are you sure you wish to exit this quest?")){
-                console.log("Yes, quit!");
-                fnNavMenus("#" + logWhere.id, "#pgWelcome");
-            }; // END True on the Confirm
+            // if(window.confirm("Are you sure you wish to exit this quest?")){
+            //     console.log("Yes, quit!");
+            //     fnNavMenus("#" + logWhere.id, "#pgWelcome");
+            // }; // END True on the Confirm
+            console.log("Yes, quit!");
+            // Clear out the old list of Saved Games first
+            document.querySelector("#pLGPartySelect").innerHTML = "";
+            // Then re-build the list
+            // Show the Saved Games (Parties) to select from
+            for(let i = 0; i < tmpGamesAll.length; i++){
+                let tmpPartyData = JSON.parse(localStorage.getItem(tmpGamesAll[i]));
+                // if a previously saved game has reached the Dungeon, disable it
+                if (tmpPartyData._currentScreen == "#pgEndGood" || tmpPartyData._currentScreen == "#pgEndBad" || tmpPartyData._currentScreen == "#pgEndOK") {
+                document.querySelector("#pLGPartySelect").innerHTML += 
+                    "<p>" + tmpPartyData.cMain.cName + " - Game Over @Dungeon</p>";
+                } else {
+                document.querySelector("#pLGPartySelect").innerHTML += 
+                    "<p>" + tmpPartyData.cMain.cName + " <button onclick='fnGameLoad(`" + tmpGamesAll[i] + "`);'>" + "Enter Game" + "</button></p>";
+                }
+            }; //END For()
+            fnNavMenus("#" + logWhere.id, "#pgWelcome");
             break;
         default:
             console.log(logWhich);
@@ -1806,7 +1859,7 @@ function fnLogOut(logWhere, logWhich){
 
 
 //=====================================================================
-//  fnDungeon - Function for all the action in the Dungeon
+//  fnDungeon - Function for all the actions in the Dungeon
 //=====================================================================
 function fnDungeon(currParty){
     console.log("At the Dungeon", currParty);
@@ -1856,8 +1909,7 @@ function fnDungeon(currParty){
 
     // This level's challenge is based on time
     document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'><span id='pDunTimer'>10</span> seconds left!</p>";
-    // BAD       OK           BEST
-    // 012       345678       910
+    // Good: 8-10 seconds left, OK: >= 3 sec Bad: < 2 sec
     // Starting point (maximum time)
     let timeLeft = 10; 
      // Obj of the number counting down
@@ -1881,7 +1933,7 @@ function fnDungeon(currParty){
             document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>DEAD</p>";
             // Before moving to worst ending, delay x amount of time
             
-            fnCountdownDelay(2, "#pgEndBAD", myParty); // pgEndBAD pgEndOK pgEndGOOD
+            fnCountdownDelay(3, "#pgEndBad", myParty); 
         }; // END If bad ending checker
     }, 1000); // END .setInterval()
 
@@ -1889,7 +1941,8 @@ function fnDungeon(currParty){
     document.querySelector("#pDunAction").innerHTML = "<p style='text-align: center;'><button id='btnDunAction'>ATTACK</button></p>";
     let elBtnDunAction = document.querySelector("#btnDunAction");
     elBtnDunAction.addEventListener("click", fnDunAction);  // function() { aFunction(a, b, c);  }
-    // Run the action of this level to check timer and give Ending posibilities
+
+    // Run the action of this level to check timer and give Ending possibilities
     function fnDunAction(){
         console.log("fnDunAction() is running");
         // Turn off item, we interacted
@@ -1897,62 +1950,93 @@ function fnDungeon(currParty){
         // Turn off timer, we interacted
         window.clearInterval(fnCountdownInterval);
         console.log("Timer stopped at", timeLeft);
-        if(timeLeft >= 9){
-            // 9, 10
+        let maxDelayTime = 3;
+        if(timeLeft >= 8){
+        // 8, 9, 10
             console.log("BEST ending");
             document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>Amazing!</p>";
             document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to GOOD end</p>";
-            fnCountdownDelay(2, "#pgEndGOOD", myParty); // pgEndBAD pgEndOK pgEndGOOD
-        } else if(timeLeft >=3 && timeLeft <= 8){
-            // 3, 4, 5, 6, 7, 8
+            fnCountdownDelay(maxDelayTime, "#pgEndGood", myParty); 
+        } else if(timeLeft >=3 && timeLeft <= 7){
+            // 3, 4, 5, 6, 7
             console.log("OK ending");
             document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>Adequate</p>";
             document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to OK end</p>";
-            fnCountdownDelay(2, "#pgEndOK", myParty); // pgEndBAD pgEndOK pgEndGOOD
+            fnCountdownDelay(maxDelayTime, "#pgEndOK", myParty); 
         } else {
             // 1, 2
             console.log("BAD ending");
             document.querySelector("#pDunEnemy").innerHTML = "<p style='text-align: center;'>No!</p>";
             document.querySelector("#pDunResults").innerHTML = "<p style='text-align: center;'>Go to BAD end</p>";
-            fnCountdownDelay(2, "#pgEndBAD", myParty); // pgEndBAD pgEndOK pgEndGOOD
+            fnCountdownDelay(maxDelayTime, "#pgEndBad", myParty); 
         }; // END If..Else If time checker
     }; // END fnDunAction()
 
     // Set up a delay to play for x time before moving us to GOOD/OK/BAD screens
     function fnCountdownDelay(maxDelayTime, pgEnd, partyID) {
         let delayTimer = window.setInterval(() => {
+            let splash, sound;
             maxDelayTime--;
             if(maxDelayTime <= 0){
                 console.log("Delay over, move to an End screen:", pgEnd);
                 // Clear this Interval (Timer)
                 window.clearInterval(delayTimer);
                 switch(pgEnd){
-                    case "#pgEndGOOD":
-                        fnNavQuest("#pgDungeon", pgEnd, partyID._id);
+                    case "#pgEndGood":
+                        console.log("Display The Good Job screen");
                         myParty._currentScreen = pgEnd;
                         localStorage.setItem(myParty._id, JSON.stringify(myParty));
+                        document.querySelector("#pgDungeon").style.display = "none";
+                        document.querySelector("#pgEndGood").style.display = "block";
+                        splash = document.getElementById("goodImage");
+                        sound = document.getElementById("goodSound");
+                        splash.style.display = "flex";
+                        sound.currentTime = 0; 
+                        sound.play();
                         break;
                     case "#pgEndOK":
-                        fnNavQuest("#pgDungeon", pgEnd, partyID._id);
+                        console.log("Display The OK Job screen");
+                        // fnNavQuest("#pgDungeon", pgEnd, partyID._id);
                         myParty._currentScreen = pgEnd;
                         localStorage.setItem(myParty._id, JSON.stringify(myParty));
+                        document.querySelector("#pgDungeon").style.display = "none";
+                        document.querySelector("#pgEndOK").style.display = "block";
+                        splash = document.getElementById("OKImage");
+                        sound = document.getElementById("OKSound");
+                        splash.style.display = "flex";
+                        sound.currentTime = 0; 
+                        sound.play();
                         break;
-                    case "#pgEndBAD":
-                        fnNavQuest("#pgDungeon", pgEnd, partyID._id);
+                    case "#pgEndBad":
+                        console.log("Display The BAD Job screen");
+                        // fnNavQuest("#pgDungeon", pgEnd, partyID._id);
                         myParty._currentScreen = pgEnd;
                         localStorage.setItem(myParty._id, JSON.stringify(myParty));
+                        document.querySelector("#pgDungeon").style.display = "none";
+                        document.querySelector("#pgEndBad").style.display = "block";
+                        splash = document.getElementById("badImage");
+                        sound = document.getElementById("badSound");
+                        splash.style.display = "flex";
+                        sound.currentTime = 0; 
+                        sound.play();
                         break;
                 }; // END Switch()
             }; // END of Delay Timer
         }, 1000);
     }; // END fnCountdownDelay()
+
+    function fnDunTheEnd(){
+        const splash = document.getElementById("splashScreen");
+        const sound = document.getElementById("playSound");
+        splash.style.display = "flex";
+        sound.currentTime = 0; 
+        sound.play();
+        sound.play().catch(() => {
+            console.log("Autoplay blocked, but will play on next user interaction.");
+        });
+    } // END fnDunTheEnd
+
 }; // END fnDungeon()
-
-
-// function fnGameRestart(pgHide, pgShow) {
-//     fnGameInit();
-//     fnNavMenus(pgHide, pgShow);
-// }
 
 
 // Make inner functions global so HTML can access them
@@ -1967,4 +2051,4 @@ window.fnLake = fnLake;
 window.fnBridge = fnBridge;
 window.fnMountain = fnMountain;
 window.fnDungeon = fnDungeon;
-window.fnGameRestart = fnGameRestart;
+window.fnLogOut = fnLogOut;

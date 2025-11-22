@@ -188,55 +188,19 @@
         </footer>
     </section> <!-- END #pgDungeon -->
 
-    <section id="pgEndBAD">
-        <header>
-            <h1>BAD</h1>
-        </header>
-        <main>
-            <p id="pLakMsg">&nbsp;</p>
-            <p id="pLakParty">&nbsp;</p>
-            <p id="pLakEnemy">&nbsp;</p>
-            <p id="pLakAction">&nbsp;</p>
-            <p id="pLakResults">&nbsp;</p>
-        </main>
-        <footer style="text-align: center;">
-            <h4>
-                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
-                 | 
-                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
-            </h4>
-        </footer>
-    </section> <!-- END #pgEND -->
-        <section id="pgEndOK">
-        <header>
-            <h1>OK</h1>
-        </header>
-        <main>
-            <p id="pLakMsg">&nbsp;</p>
-            <p id="pLakParty">&nbsp;</p>
-            <p id="pLakEnemy">&nbsp;</p>
-            <p id="pLakAction">&nbsp;</p>
-            <p id="pLakResults">&nbsp;</p>
-        </main>
-        <footer style="text-align: center;">
-            <h4>
-                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
-                 | 
-                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
-            </h4>
-        </footer>
-    </section> <!-- END #pgEND -->
-        <section id="pgEndGOOD">
-        <header>
+
+    <section id="pgEndGood">
+        <!-- <header>
             <h1>GOOD</h1>
-        </header>
-        <main>
-            <p id="pLakMsg">&nbsp;</p>
-            <p id="pLakParty">&nbsp;</p>
-            <p id="pLakEnemy">&nbsp;</p>
-            <p id="pLakAction">&nbsp;</p>
-            <p id="pLakResults">&nbsp;</p>
-        </main>
+        </header> -->
+        <div class="splashScreen" id="goodImage">   <!-- Display Animated GIF -->
+            <img id="showImage"  
+                src="/res/goodjob.webp"
+                alt="Good Job Animation">
+        </div>
+        <audio id="goodSound">  <!-- Background sound -->
+            <source src="/res/goodjob.mp3" type="audio/mpeg">
+        </audio>
         <footer style="text-align: center;">
             <h4>
                 <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
@@ -244,7 +208,49 @@
                 <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
             </h4>
         </footer>
-    </section> <!-- END #pgEND -->
+    </section> <!-- END #pgEndGood -->
+
+    <section id="pgEndOK">
+        <!-- <header>
+            <h1>OK</h1>
+        </header> -->
+        <div class="splashScreen" id="OKImage">   <!-- Display Animated GIF -->
+            <img id="showImage"  
+                src="/res/ok.gif"
+                alt="OK Animation">
+        </div>
+        <audio id="OKSound">  <!-- Background sound -->
+            <source src="/res/ok.mp3" type="audio/mpeg">
+        </audio>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgEndOK -->
+
+    <section id="pgEndBad">
+        <!-- <header>
+            <h1>BAD</h1>
+        </header> -->
+        <div class="splashScreen" id="badImage">   <!-- Display Animated GIF -->
+            <img id="showImage"  
+                src="/res/game-over.png"
+                alt="Game Over Animation">
+        </div>
+        <audio id="badSound">  <!-- Background sound -->
+            <source src="/res/game-over.mp3" type="audio/mpeg">
+        </audio>
+        <footer style="text-align: center;">
+            <h4>
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Load'); return false;">Load</a>
+                 | 
+                <a href="#" onclick="fnLogOut(this.parentElement.parentElement.parentElement, 'Quit'); return false;">Quit</a>
+            </h4>
+        </footer>
+    </section> <!-- END #pgEndBad -->
 
     <!-- Template for future levels -->
     <section id="pgTMP">
